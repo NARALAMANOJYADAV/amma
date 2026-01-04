@@ -1,0 +1,78 @@
+:root { --gold: #ffd700; --rose: #ff4d6d; }
+body { margin: 0; background: #000; overflow: hidden; font-family: 'Arial Black', sans-serif; }
+
+#starfield { position: fixed; width: 100vw; height: 100vh; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); z-index: -1; }
+canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
+/* Gift & Bike Logic */
+#gift-container { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+#gift-wrapper { cursor: pointer; position: relative; z-index: 110; }
+#gift-lid { font-size: 80px; position: absolute; top: -40px; left: 10px; transition: 1s ease-in-out; }
+#gift-box { font-size: 100px; }
+.open-lid #gift-lid { transform: translateY(-300px) rotate(45deg); opacity: 0; }
+
+#delivery-bike { 
+    position: absolute; font-size: 160px; left: -400px; top: 40%; 
+    display: none; z-index: 105; 
+    transform: scaleX(-1); /* Flips the bike to face RIGHT */
+}
+.bike-go { display: block !important; animation: bikeSlow 8s ease-in-out forwards; }
+@keyframes bikeSlow { 0% { left: -400px; } 100% { left: 125%; } }
+
+/* 3D Gallery */
+#final-scene { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; perspective: 2000px; z-index: 10; }
+.photo-display { width: 300px; height: 350px; position: relative; transform-style: preserve-3d; animation: rotateGallery 40s infinite linear; }
+.photo-display:hover { animation-play-state: paused; }
+
+.floating-panel { position: absolute; width: 220px; height: 300px; border: 5px solid #fff; box-shadow: 0 0 20px var(--rose); overflow: hidden; cursor: pointer; transition: 0.4s; }
+.floating-panel img { width: 100%; height: 100%; object-fit: cover; }
+
+.p1 { transform: rotateY(0deg) translateZ(550px); }
+.p2 { transform: rotateY(60deg) translateZ(550px); }
+.p3 { transform: rotateY(120deg) translateZ(550px); }
+.p4 { transform: rotateY(180deg) translateZ(550px); }
+.p5 { transform: rotateY(240deg) translateZ(550px); }
+.p6 { transform: rotateY(300deg) translateZ(550px); }
+@keyframes rotateGallery { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+
+/* Fixed Text Color Animation */
+.love-you-text {
+    font-size: 3.5rem;
+    background: linear-gradient(to right, var(--gold), #fff, var(--rose), var(--gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+    margin-top: 50px;
+    text-align: center;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+/* Magic Background Overlay */
+#fullview-overlay { 
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+    background: #000; z-index: 9999; display: none; 
+    justify-content: center; align-items: center; flex-direction: column;
+}
+
+.moon {
+    position: absolute; top: 50px; right: 80px; width: 100px; height: 100px;
+    background: #fff; border-radius: 50%;
+    box-shadow: 0 0 40px #fff;
+    animation: moonPulse 4s infinite ease-in-out;
+}
+@keyframes moonPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+
+/* Fix for Half-Visible Images */
+.full-img-zoom { 
+    max-width: 90%; 
+    max-height: 75vh; /* Prevents being cut off */
+    border: 10px solid #fff; 
+    object-fit: contain; /* Ensures whole image is visible */
+    box-shadow: 0 0 50px var(--gold);
+    animation: zoomFull 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes zoomFull { from { transform: scale(0); } to { transform: scale(1); } }
+
+#inner-quote { color: white; margin-top: 30px; font-size: 1.5rem; text-align: center; }
